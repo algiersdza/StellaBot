@@ -8,9 +8,9 @@ With StellaBot, the user can run the application in the background for peace of 
 be alerted if their specific item is available, and based on their preference, 
 the application will place an order to purchase the item.
 
-###Build Version: `0.1`
+### Build Version: `0.1`
 
-###Features
+### Features
 
 - [ ] User Interface
 - [ ] Real Time Tracking
@@ -19,7 +19,7 @@ the application will place an order to purchase the item.
 - [ ] Push Alerts
 - [ ] Export Data
 
-###Instructions
+### Instructions
 
 
-###UI
+### UI
