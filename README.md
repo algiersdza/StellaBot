@@ -8,18 +8,22 @@ With StellaBot, the user can run the application in the background for peace of 
 be alerted if their specific item is available, and based on their preference, 
 the application will place an order to purchase the item.
 
-### Build Version: `0.1`
+Supporting websites to be scraped will be a scrape sandbox to avoid IP bans and delays
+of testing phase.
+
+### Build Version: `0.6`
 
 ### Features
 
-- [ ] User Interface
+- [x] User Interface
 - [ ] Real Time Tracking
-- [ ] Tracking Management
+- [x] Tracking Management
 - [ ] Automated Purchase
 - [ ] Push Alerts
 - [ ] Export Data
 
 ### Instructions
-
+`TODO`
 
 ### UI
+`TODO`
