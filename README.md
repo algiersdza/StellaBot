@@ -23,7 +23,7 @@ of testing phase.
 - [ ] Export Data
 
 ### Instructions
-`TODO`
+![user page example](https://user-images.githubusercontent.com/81432643/158946946-7879003b-91ee-43f2-b34b-eed273cd9d7e.png)
 
 ### UI
-`TODO`
+![user page example](https://user-images.githubusercontent.com/81432643/158947391-f618ac43-7151-4dd6-98b5-a42db81d8852.png)
