@@ -12,7 +12,7 @@ Application will place an order to purchase the item (Not Supported For Now).
 Supporting websites to be scraped will be a mixture of scrape sandboxes and my own localhost webpages to avoid IP bans and delays
 of testing phase.
 
-### Build Version: `0.8`
+### Build Version: `1.0`
 
 ### Features
 
@@ -21,7 +21,7 @@ of testing phase.
 - [x] Tracking Management
 - [ ] Automated Purchase
 - [x] Push Alerts
-- [ ] Export Data
+- [x] Export Data
 
 ### How To Test The Application
 

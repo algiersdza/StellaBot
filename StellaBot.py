@@ -4,6 +4,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import time
+import datetime
+import csv
+import pandas as pd
 from requests_html import HTMLSession
 
 StyleSheet = """
@@ -83,7 +86,7 @@ QListView{
 
 #global variables
 WINDOW_SIZE = 800, 800
-VERSION_NUMBER_STR = ("Version: " + str(0.8))
+VERSION_NUMBER_STR = ("Version: " + str(1))
 nnnn = 0 # background colour int for signals, 0 is eggplant default colour
 
 item1_is_running = False
@@ -155,7 +158,7 @@ class WorkerOne(QObject):
                     if "In stock" in availability:
                         self.item_is_found.emit(title, 1, availability)
                         break
-                    time.sleep(10)
+                    time.sleep(60)
                 self.tracking_or_nah.emit(1, 0)
             except:
                 print("Cant GET response from first link")
@@ -181,7 +184,7 @@ class WorkerTwo(QObject):
                 if "In stock" in availability:
                     self.item_is_found2.emit(title, 2, availability)
                     break
-                time.sleep(10)
+                time.sleep(60)
             self.tracking_or_nah2.emit(2, 0)
         except:
             print("Cant GET response from second link")
@@ -395,7 +398,7 @@ class UserPreferences(QDialog):
 
         if self.save_csv_edit_line.text():
             new_csv_loc = str(self.save_csv_edit_line.text())
-            lines[1] = f"csv_location={new_csv_loc}\n"
+            lines[1] = f"csv_location={new_csv_loc}"
             with open(path_of_user_prefs, 'w') as write_email:  #   do write operation
                 write_email.writelines(lines)
 
@@ -850,6 +853,7 @@ class MainWindow(QMainWindow):
         self.thread5.quit()
 
     # update the status display to show items that are tracking
+    # slot for a signal
     # (60 seconds interval to lower the chance of an IP ban, timer found at Worker subclasses)
     def update_items_status(self, title, price, availability):
         titlez = title.split("|")[0]
@@ -863,12 +867,33 @@ class MainWindow(QMainWindow):
         #         'Availability': availabilities,
         #         'Date': datenowthx
         # })
-        print(reportingz)
+        # print(reportingz)
         self.status_items_display.append(reportingz)
 
     # button function, produce report
     def produce_report(self):
-        print("place holder, produced report")
+        test_text = self.status_items_display.toPlainText()
+        # find the path of the csv_save_path
+        with open(path_of_user_prefs, "r") as find_path:
+            csv_path_is = find_path.readlines()
+            directory = csv_path_is[1].split("=")[1]
+            x = datetime.datetime.now()
+            file = f"{x.year}_{x.month}_{x.day}.csv"
+            path_csv = os.path.join(directory, file)
+
+        # check if directory exists,
+        if os.path.exists(path_csv):
+            # write to csv
+            with open(path_csv, 'w') as f:
+                writer = csv.writer(f)
+                writer.writerow(test_text)
+        else:
+            # create the dir
+            os.mkdir(os.path.dirname(path_csv))
+            # write to csv
+            with open(path_csv, 'w') as f:
+                 writer = csv.writer(f)
+                 writer.writerows(test_text)
 
     # function to create the top banner to display time and version
     def create_top_banner(self):
@@ -882,7 +907,7 @@ class MainWindow(QMainWindow):
         top_view.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         top_view.setGeometry(0, 0, 800, 25)
 
-        welcome_label = QGraphicsSimpleTextItem('StellaBot Version 0.8')
+        welcome_label = QGraphicsSimpleTextItem('StellaBot Version 1.0')
         welcome_label.setFont(QFont('Times New Roman', 12))
         welcome_label.setBrush(QColor(153, 51, 255))
         welcome_label.setPos(5, 15)
@@ -1059,10 +1084,10 @@ class MainWindow(QMainWindow):
 if __name__ == '__main__':
     app = QApplication([])
 
-    # splash = SplashScreen()
-    # splash.show()
-    # splash.progress()
+    splash = SplashScreen()
+    splash.show()
+    splash.progress()
     window = MainWindow()
-    # splash.finish(window)
+    splash.finish(window)
 
     app.exec_()
